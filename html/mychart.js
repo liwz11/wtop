@@ -46,6 +46,7 @@ bw_init_option = {
     // 区域缩放
     dataZoom: [
         {
+        	show: true,
             type: 'slider',
             realtime: true,
             start: 80,
@@ -54,6 +55,7 @@ bw_init_option = {
             showDetail: true
         },
         {
+        	show: true,
             type: 'inside',
             realtime: true,
             start: 80,
