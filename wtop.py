@@ -157,7 +157,7 @@ if __name__ == '__main__':
 	parser = ArgumentParser(description='monitor system\' performance and display it in html, just like \'top\'.')
 	parser.add_argument('--iface', default='eth0', help='specify an interface and monitor it, default \'eth0\'')
 	parser.add_argument('--addr', default='127.0.0.1', help='the http server domain or ip addr, default \'127.0.0.1\'')
-	parser.add_argument('--port', default=8888, type=int, help='the tmap server port, default 8888')
+	parser.add_argument('--port', default=8642, type=int, help='the tmap server port, default 8642')
 	parser.add_argument('--interval', default=5, type=int, help='the interval to get data in mychart.js, default 5s')
 	parser.add_argument('--timeout', default=5, type=int, help='the timeout to get data in mychart.js, default 5s')
 	args = parser.parse_args()
@@ -178,8 +178,8 @@ if __name__ == '__main__':
 	monitor_thread.start()
 
 	try:
-		server = HTTPServer(('127.0.0.1', 8888), MyHTTPHandler)
-		print('[+] start an HTTP server on 127.0.0.1:8888\n')
+		server = HTTPServer((http_conf['addr'], http_conf['port']), MyHTTPHandler)
+		print('[+] start an HTTP server on %s:%d\n' % (http_conf['addr'], http_conf['port']))
 		server.serve_forever()
 	except Exception as e:
 		server.socket.close()
