@@ -147,8 +147,8 @@ function get_data() {
 					obw_list.push(item.obw);
 				});
 
-            	bw_data_option.yAxis[0].max = Math.ceil(Math.max.apply(null, obw_list)) + 1;
-            	bw_data_option.yAxis[1].max = Math.ceil(Math.max.apply(null, ibw_list)) + 1;
+            	//bw_data_option.yAxis[0].max = Math.ceil(Math.max.apply(null, obw_list)) + 1;
+            	//bw_data_option.yAxis[1].max = Math.ceil(Math.max.apply(null, ibw_list)) + 1;
 				bw_data_option.xAxis[0].data = time_list.map(function (str) {
 	                return str.replace(' ', '\n');
 	            });
