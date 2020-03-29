@@ -71,7 +71,9 @@ bw_data_option = {
             type: 'value',
             // 横向网格线设置不显示
             splitLine: { show: false },
-            max: 1,
+            max: function(value) {
+            	return Math.ceil(value.max)
+            },
         },
         {
             name: '入带宽(Mbps)',
@@ -79,7 +81,9 @@ bw_data_option = {
             type: 'value',
             // 横向网格线设置不显示
             splitLine: { show: false },
-            max: 1,
+            max: function(value) {
+            	return Math.ceil(value.max)
+            },
             inverse: true,
         }
     ],
