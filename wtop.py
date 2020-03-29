@@ -67,7 +67,7 @@ class MyHTTPHandler(BaseHTTPRequestHandler):
 				global http_conf
 
 				js_text = f.read()
-				js_text = js_text.replace('[ADDR]', http_conf['addr'])
+				js_text = js_text.replace('[DOMAIN]', http_conf['domain'])
 				js_text = js_text.replace('[PORT]', str(http_conf['port']))
 				js_text = js_text.replace('[INTERVAL]', str(http_conf['interval']))
 				js_text = js_text.replace('[TIMEOUT]', str(http_conf['timeout']))
@@ -154,9 +154,10 @@ def get_ip_addr(ifname):
 
 
 if __name__ == '__main__':
-	parser = ArgumentParser(description='monitor system\' performance and display it in html, just like \'top\'.')
+	parser = ArgumentParser(description='monitor system\'s performance and display it with html, just like \'top\'.')
 	parser.add_argument('--iface', default='eth0', help='specify an interface and monitor it, default \'eth0\'')
-	parser.add_argument('--addr', default='127.0.0.1', help='the http server domain or ip addr, default \'127.0.0.1\'')
+	parser.add_argument('--domain', default='', help='the http server domain, default addr')
+	parser.add_argument('--addr', default='127.0.0.1', help='the http server addr, default \'127.0.0.1\'')
 	parser.add_argument('--port', default=8642, type=int, help='the tmap server port, default 8642')
 	parser.add_argument('--interval', default=5, type=int, help='the interval to get data in mychart.js, default 5s')
 	parser.add_argument('--timeout', default=5, type=int, help='the timeout to get data in mychart.js, default 5s')
@@ -166,10 +167,14 @@ if __name__ == '__main__':
 	addr = get_ip_addr(iface)
 
 	http_conf = {}
+	http_conf['domain']   = args.domain
 	http_conf['addr']     = args.addr
 	http_conf['port']     = args.port
 	http_conf['interval'] = args.interval
 	http_conf['timeout']  = args.timeout
+
+	if http_conf['domain'] == '':
+		http_conf['domain'] = http_conf['addr']
 
 	print('')
 	

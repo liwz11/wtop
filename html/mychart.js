@@ -159,7 +159,7 @@ function get_data() {
         }
     }
 
-    xmlhttp.open("GET", "http://[ADDR]:[PORT]/get_data?t=" + t, true);
+    xmlhttp.open("GET", "http://[DOMAIN]:[PORT]/get_data?t=" + t, true);
     xmlhttp.timeout = [TIMEOUT] * 1000;
     xmlhttp.send(null);
 
