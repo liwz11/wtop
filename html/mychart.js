@@ -46,14 +46,14 @@ bw_init_option = {
     // 区域缩放
     dataZoom: [
         {
-            show: true,
-            realtime: false,
+            type: 'inside',
+            realtime: true,
             start: 80,
             end: 100
         },
         {
-            type: 'inside',
-            realtime: false,
+            show: true,
+            realtime: true,
             start: 80,
             end: 100
         }
