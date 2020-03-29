@@ -58,13 +58,7 @@ bw_init_option = {
             end: 100
         }
     ],
-    // 颜色
-    color: ['#EE6363','#4682B4']
-};
-
-
-bw_data_option = {
-	// y轴
+    // y轴
     yAxis: [
         {
             name: '出带宽(Mbps)',
@@ -87,6 +81,12 @@ bw_data_option = {
             inverse: true,
         }
     ],
+    // 颜色
+    color: ['#EE6363','#4682B4']
+};
+
+
+bw_data_option = {
 	// x轴
     xAxis: [
         {
