@@ -58,15 +58,20 @@ bw_init_option = {
             end: 100
         }
     ],
-    // y轴
+    // 颜色
+    color: ['#EE6363','#4682B4']
+};
+
+
+bw_data_option = {
+	// y轴
     yAxis: [
         {
             name: '出带宽(Mbps)',
             type: 'value',
             // 横向网格线设置不显示
             splitLine: { show: false },
-            //max: 1000,
-            min: 5,
+            max: 1,
         },
         {
             name: '入带宽(Mbps)',
@@ -74,17 +79,10 @@ bw_init_option = {
             type: 'value',
             // 横向网格线设置不显示
             splitLine: { show: false },
-            //max: 1000,
-            min: 5,
+            max: 1,
             inverse: true,
         }
     ],
-    // 颜色
-    color: ['#EE6363','#4682B4']
-};
-
-
-bw_data_option = {
 	// x轴
     xAxis: [
         {
@@ -149,12 +147,14 @@ function get_data() {
 					obw_list.push(item.obw);
 				});
 
+            	bw_data_option.yAxis[0].max = Math.ceil(Math.max.apply(null, obw_list)) + 1;
+            	bw_data_option.yAxis[1].max = Math.ceil(Math.max.apply(null, ibw_list)) + 1;
 				bw_data_option.xAxis[0].data = time_list.map(function (str) {
 	                return str.replace(' ', '\n');
 	            });
 
-				bw_data_option.series[0].data = ibw_list;
-				bw_data_option.series[1].data = obw_list;
+				bw_data_option.series[0].data = obw_list;
+				bw_data_option.series[1].data = ibw_list;
 
 				bw_chart.setOption(bw_data_option);
             }
