@@ -47,13 +47,13 @@ bw_init_option = {
     dataZoom: [
         {
             show: true,
-            realtime: true,
+            realtime: false,
             start: 80,
             end: 100
         },
         {
             type: 'inside',
-            realtime: true,
+            realtime: false,
             start: 80,
             end: 100
         }
