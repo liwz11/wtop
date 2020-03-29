@@ -65,7 +65,8 @@ bw_init_option = {
             type: 'value',
             // 横向网格线设置不显示
             splitLine: { show: false },
-            //max: 1000
+            //max: 1000,
+            min: 5,
         },
         {
             name: '入带宽(Mbps)',
@@ -74,7 +75,8 @@ bw_init_option = {
             // 横向网格线设置不显示
             splitLine: { show: false },
             //max: 1000,
-            inverse: true
+            min: 5,
+            inverse: true,
         }
     ],
     // 颜色
