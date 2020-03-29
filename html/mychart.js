@@ -54,13 +54,14 @@ bw_init_option = {
             showDataShadow: true, //是否显示数据阴影 默认auto
             showDetail: true
         },
+        /*
         {
         	show: true,
             type: 'inside',
             realtime: true,
             start: 80,
             end: 100
-        }
+        }*/
     ],
     // y轴
     yAxis: [
