@@ -2,7 +2,7 @@
 # Author: liwz11
 
 
-import os, time, json, threading, subprocess
+import os, time, json, re, threading, subprocess
 import socket, fcntl, struct
 
 from argparse import ArgumentParser
@@ -22,27 +22,29 @@ def popen_command(command):
 def monitor(iface, addr):
 	print('[+] monitor the system\'s CPU and memory, the specified interface\'s bandwidth and connections.')
 
-	ibytes_cmd = "ifconfig %s | grep 'bytes' | cut -d ':' -f2 | cut -d ' ' -f1" % iface
-	obytes_cmd = "ifconfig %s | grep 'bytes' | cut -d ':' -f3 | cut -d ' ' -f1" % iface
+	byte_cmd = "ifconfig %s" % iface
 	conn_cmd   = "netstat -n | awk '/%s:/ {++S[$NF]} END {for(a in S) print a, S[a]}' | grep 'ESTABLISHED' | cut -d ' ' -f2" % addr
 
 	while True:
 		t1 = time.time()
-		ibytes1 = int(popen_command(ibytes_cmd))
-		obytes1 = int(popen_command(obytes_cmd))
-
+		bytes1 = popen_command(byte_cmd)
 		time.sleep(1)
-
 		t2 = time.time()
-		ibytes2 = int(popen_command(ibytes_cmd))
-		obytes2 = int(popen_command(obytes_cmd))
-
+		bytes2 = popen_command(byte_cmd)
 		conn = popen_command(conn_cmd)
 
-		if ibytes1 == None or obytes1 == None or ibytes2 == None or obytes2 == None or conn == None:
+		if bytes1 == None or bytes2 == None or conn == None:
 			continue
 
 		'+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+
+		find_bytes = re.findall('bytes[: \t]([0-9]*)', bytes1)
+		ibytes1 = int(find_bytes[0])
+		obytes1 = int(find_bytes[1])
+
+		find_bytes = re.findall('bytes[: \t]([0-9]*)', bytes2)
+		ibytes2 = int(find_bytes[0])
+		obytes2 = int(find_bytes[1])
 
 		ibw = int(round((ibytes2 - ibytes1) * 8 / (t2 - t1))) # bps
 		obw = int(round((obytes2 - obytes1) * 8 / (t2 - t1))) # bps
@@ -78,4 +80,3 @@ if __name__ == '__main__':
 	
 	time.sleep(100)
 
-	
