@@ -39,6 +39,10 @@ class MyHTTPHandler(BaseHTTPRequestHandler):
 				self.send_response(200)
 				self.send_header('Content-Type', content_type)
 				self.end_headers()
+
+				max_num = 3000
+				if pram.endswith('t=0'):
+					max_num = 10000
 				
 				t = time.strftime("%Y-%m-%d", time.localtime(time.time())) + ' 00:00:00'
 				temp = pram.split('t=')
@@ -47,10 +51,11 @@ class MyHTTPHandler(BaseHTTPRequestHandler):
 				date = t.split(' ')[0].replace('-', '')
 
 				res_list = []
+				
 				with open('./logs/%s.log' % date, 'r') as f:
 					for line in f:
 						performance = json.loads(line.strip())
-						if len(res_list) >= 2000:
+						if len(res_list) >= max_num:
 							break
 						if performance['t'] <= t:
 							continue

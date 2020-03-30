@@ -244,6 +244,8 @@ bw_chart.setOption(Object.assign(bw_init_option, bw_data_option));
 conn_chart.setOption(Object.assign(conn_init_option, conn_data_option));
 
 var t = 0;
+var count = 0
+var interval = 1
 get_data();
 
 function get_data() {
@@ -287,7 +289,12 @@ function get_data() {
     xmlhttp.timeout = [TIMEOUT] * 1000;
     xmlhttp.send(null);
 
+    count += 1;
+    if(count > 20) {
+    	interval = [INTERVAL];
+    }
+
     setTimeout(function() {
         get_data();
-    }, [INTERVAL] * 1000);
+    }, interval * 1000);
 }
